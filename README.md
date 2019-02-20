@@ -2,7 +2,7 @@
 
 ## Description
 
-[AtCoder](https://beta.atcoder.jp/)に登録されているユーザーに関する情報を取得できる非公式APIです。
+[AtCoder](https://atcoder.jp/)に登録されているユーザーに関する情報を取得できる非公式APIです。
 
 ## Features
 
