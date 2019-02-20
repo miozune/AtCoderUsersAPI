@@ -23,14 +23,36 @@ $ curl https://us-central1-atcoderusersapi.cloudfunctions.net/api/info/TwitterID
 
 ### URL
 
-`https://us-central1-atcoderusersapi.cloudfunctions.net/api/info/[query]/[name]`
+- `https://us-central1-atcoderusersapi.cloudfunctions.net/api/info/[query]/[name]`
 
-- query:
+    - query:
 
-    - `username`: usernameで検索
-    - `TwitterID`: TwitterIDで検索
+        - `username`: usernameで検索
+        - `TwitterID`: TwitterIDで検索
 
-- name: 欲しい名前
+    - name: 欲しい名前
+
+- `https://us-central1-atcoderusersapi.cloudfunctions.net/api/all/[query]`
+
+    - query:
+
+        - `username`: usernameで検索
+        - `TwitterID`: TwitterIDで検索
+
+    - param:
+
+        - `rank`, `birth_year`, `rating`, `highest_rating`, `competitions`, `wins`: start, end を指定可能
+        - `country`, `formal_country_name`, `crown`, `user_color`, `affiliation`: 値を指定可能
+        - 複数のパラメータ指定は不可
+        - 例
+        ```bash
+        $ curl http://us-central1-atcoderusersapi.cloudfunctions.net/api/all/username?rating[start]=4000&rating[end]=4400
+
+        $ curl http://us-central1-atcoderusersapi.cloudfunctions.net/api/all/username?country=BY
+
+        $ curl http://us-central1-atcoderusersapi.cloudfunctions.net/api/all/username?rating[start]=4000&rating[end]=4400&country=BY
+        /* this does not work */
+        ```
 
 ### Return
 
@@ -39,7 +61,7 @@ $ curl https://us-central1-atcoderusersapi.cloudfunctions.net/api/info/TwitterID
 - status: Success
 
 ```json
-/* username */
+/* info/username */
 {
     "data":{
         "affiliation": "ITMO University",
@@ -60,7 +82,7 @@ $ curl https://us-central1-atcoderusersapi.cloudfunctions.net/api/info/TwitterID
 ```
 
 ```json
-/* TwitterID */
+/* info/TwitterID */
 {
     "data":{
         "affiliation": "ITMO University",
@@ -76,6 +98,29 @@ $ curl https://us-central1-atcoderusersapi.cloudfunctions.net/api/info/TwitterID
         "user_color": "red",
         "username": "tourist",
         "wins": 13
+    }
+}
+```
+
+```json
+/* all/username */
+{
+    "data":{
+        "tourist": {
+            "affiliation": "ITMO University",
+            "birth_year": 1994,
+            "competitions": 25,
+            "country": "BY",
+            "crown": "crown4000",
+            "formal_country_name": "Belarus",
+            "highest_rating": 4208,
+            "rank": 1,
+            "rating": 4149,
+            "twitter_id": "que_tourist",
+            "updated": "2018-11-12 11:30:20.272469",
+            "user_color": "red",
+            "wins": 13
+        }
     }
 }
 ```
